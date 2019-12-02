@@ -79,6 +79,7 @@
             this.comboBox2.Size = new System.Drawing.Size(205, 21);
             this.comboBox2.TabIndex = 3;
             this.comboBox2.DropDown += new System.EventHandler(this.ComboBox2_DropDown);
+            this.comboBox2.SelectedIndexChanged += new System.EventHandler(this.ComboBox2_SelectedIndexChanged);
             // 
             // label2
             // 
@@ -128,6 +129,7 @@
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(159, 485);
             this.listBox1.TabIndex = 9;
+            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.ListBox1_SelectedIndexChanged);
             // 
             // Form1
             // 

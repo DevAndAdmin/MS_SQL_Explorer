@@ -72,7 +72,7 @@ namespace MSSQLexplorer
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Не получилось подключиться к выбранной БД");
+                MessageBox.Show("Не получилось подключиться к выбранному серверу");
             }
             if (con != null && con.State == ConnectionState.Open)
             {
@@ -86,6 +86,60 @@ namespace MSSQLexplorer
                     comboBox2.Items.Add(string.Concat(dr["name"]));
                     //comboBox2.Invoke((MethodInvoker)(() => comboBox2.Items.Add(string.Concat(dr["name"])));
                 }
+                con.Close();
+            }
+        }
+
+        private void showtables()
+        {
+            //connect to server and ask dbs
+            SqlConnection con = new SqlConnection($@"Data Source={comboBox1.Text};Initial Catalog={comboBox2.Text};Integrated Security=True");
+            try
+            {
+                con.Open();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Не получилось подключиться к выбранной БД");
+            }
+            if (con != null && con.State == ConnectionState.Open)
+            {
+                sqlcmd = new SqlCommand("SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES", con);
+                sqladpt = new SqlDataAdapter(sqlcmd.CommandText, con);
+                dt = new DataTable();
+                dt.Locale = System.Globalization.CultureInfo.InvariantCulture;
+                sqladpt.Fill(dt);
+                foreach (DataRow dr in dt.Rows)
+                {
+                    listBox1.Items.Add(string.Concat(dr["TABLE_NAME"]));
+                     //comboBox2.Items.Add(string.Concat(dr["TABLE_NAME"]));
+                     //comboBox2.Invoke((MethodInvoker)(() => comboBox2.Items.Add(string.Concat(dr["name"])));
+                }
+                con.Close();
+            }
+        }
+
+        private void loadtable()
+        {
+            SqlConnection con = new SqlConnection($@"Data Source={comboBox1.Text};Initial Catalog={comboBox2.Text};Integrated Security=True");
+            try
+            {
+                con.Open();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Не получилось подключиться к выбранной БД");
+            }
+            if (con != null && con.State == ConnectionState.Open)
+            {
+                sqlcmd = new SqlCommand($"SELECT TOP(100) * FROM {listBox1.Text}", con);
+                sqladpt = new SqlDataAdapter(sqlcmd.CommandText, con);
+                dt = new DataTable();
+                dt.Locale = System.Globalization.CultureInfo.InvariantCulture;
+                sqladpt.Fill(dt);
+                bindingSource1.DataSource = dt;
+                dataGridView1.DataSource = bindingSource1;
+                con.Close();
             }
         }
 
@@ -106,6 +160,16 @@ namespace MSSQLexplorer
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
          
+        }
+
+        private void ComboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            showtables();
+        }
+
+        private void ListBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            loadtable();
         }
     }
 }
