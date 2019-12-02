@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -38,7 +39,9 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.listBox1 = new System.Windows.Forms.ListBox();
+            this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridView1
@@ -57,6 +60,7 @@
             this.comboBox1.Size = new System.Drawing.Size(205, 21);
             this.comboBox1.TabIndex = 1;
             this.comboBox1.DropDown += new System.EventHandler(this.comboBox1_DropDown);
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.ComboBox1_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -74,6 +78,7 @@
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(205, 21);
             this.comboBox2.TabIndex = 3;
+            this.comboBox2.DropDown += new System.EventHandler(this.ComboBox2_DropDown);
             // 
             // label2
             // 
@@ -141,7 +146,9 @@
             this.Controls.Add(this.dataGridView1);
             this.Name = "Form1";
             this.Text = "MS SQL Explorer";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -159,6 +166,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.BindingSource bindingSource1;
     }
 }
 
